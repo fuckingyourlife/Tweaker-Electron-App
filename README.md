@@ -49,5 +49,5 @@ Otimizações específicas para sua placa de vídeo.
 ---
 
 <p align="center">
-  <sub>Desenvolvido com ❤️ para a comunidade gamer.</sub>
+  <sub>Desenvolvido por lipee + IA.</sub>
 </p>
