@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweaker.exe | Premium PC Optimization</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="vantablack">
+    <!-- Login Screen Overlay -->
+    <div id="login-screen" class="overlay-screen">
+        <div class="login-card glass-premium">
+            <div class="login-brand">
+                <span class="lightning-glow"><i class="fa-solid fa-bolt-lightning"></i></span>
+                <h1>Tweaker<span>.exe</span></h1>
+                <p>Your ultimate performance companion</p>
+            </div>
+            <div class="login-actions">
+                <button id="discord-login-btn" class="discord-btn-large">
+                    <i class="fa-brands fa-discord"></i>
+                    Login with Discord
+                </button>
+                <p class="login-footer">By logging in, you agree to our Terms of Service</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Layout (Hidden until login) -->
+    <div id="main-app" class="app-container" style="display: none;">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-minimal">
+                    <span class="icon-gradient"><i class="fa-solid fa-bolt"></i></span>
+                    <h2>Tweaker</h2>
+                </div>
+            </div>
+
+            <div class="nav-sections">
+                <div class="nav-group">
+                    <span class="group-label">Overview</span>
+                    <button class="nav-item active" data-tab="dashboard">
+                        <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span> Dashboard
+                    </button>
+                </div>
+
+                <div class="nav-group">
+                    <span class="group-label">Optimizations</span>
+                    <button class="nav-item" data-tab="gaming">
+                        <span class="nav-icon"><i class="fa-solid fa-gamepad"></i></span> Gaming
+                    </button>
+                    <button class="nav-item" data-tab="cpu">
+                        <span class="nav-icon"><i class="fa-solid fa-microchip"></i></span> CPU/Power
+                    </button>
+                    <button class="nav-item" data-tab="gpu">
+                        <span class="nav-icon"><i class="fa-solid fa-bolt"></i></span> GPU Engine
+                    </button>
+                    <button class="nav-item" data-tab="peripherals">
+                        <span class="nav-icon"><i class="fa-solid fa-keyboard"></i></span> Peripherals
+                    </button>
+                    <button class="nav-item" data-tab="network">
+                        <span class="nav-icon"><i class="fa-solid fa-wifi"></i></span> Network
+                    </button>
+                </div>
+
+                <div class="nav-group">
+                    <span class="group-label">Advanced</span>
+                    <button class="nav-item premium-tag" data-tab="premium">
+                        <span class="nav-icon"><i class="fa-solid fa-gem"></i></span> Premium
+                    </button>
+                    <button class="nav-item" data-tab="privacy">
+                        <span class="nav-icon"><i class="fa-solid fa-shield-halved"></i></span> Privacy
+                    </button>
+                    <button class="nav-item admin-tab" data-tab="admin" style="display: none;">
+                        <span class="nav-icon"><i class="fa-solid fa-user-shield"></i></span> Admin
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div id="user-profile" class="discord-profile">
+                    <div class="avatar-container">
+                        <img id="user-avatar" src="" alt="Avatar">
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="user-meta">
+                        <span id="user-name" class="username">Guest</span>
+                        <span id="user-role" class="role">Free Access</span>
+                    </div>
+                    <button id="logout-btn" class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-view">
+            <!-- Dashboard -->
+            <section id="dashboard" class="tab-pane active">
+                <div class="view-header">
+                    <h1>System Overview</h1>
+                    <p>Real-time optimization metrics and hardware status.</p>
+                </div>
+
+                <div class="dashboard-top">
+                    <!-- Announcements Box -->
+                    <div class="announcements-card glass-premium">
+                        <div class="announcement-header">
+                            <h3><i class="fa-solid fa-bullhorn"></i> Latest Updates</h3>
+                            <span class="announcement-date">New</span>
+                        </div>
+                        <div id="announcement-list" class="announcement-content">
+                            <p>Welcome to Tweaker.exe! Check out the new Gaming tab for lower latency tweaks.</p>
+                        </div>
+                    </div>
+
+                    <!-- PC Info Section -->
+                    <div class="pc-info-card glass-premium">
+                        <h3><i class="fa-solid fa-desktop"></i> PC Specifications</h3>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">CPU</span>
+                                <span id="spec-cpu" class="spec-value">Fetching...</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">GPU</span>
+                                <span id="spec-gpu" class="spec-value">Fetching...</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Memory</span>
+                                <span id="spec-ram" class="spec-value">Fetching...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-grid">
+                    <div class="card-metric glass-premium">
+                        <div class="metric-info">
+                            <h3>PC Performance</h3>
+                            <p class="metric-value">45%</p>
+                        </div>
+                        <div class="metric-chart">
+                            <svg class="progress-ring" viewBox="0 0 100 100">
+                                <circle class="ring-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="ring-progress" cx="50" cy="50" r="45"
+                                    style="stroke-dasharray: 283; stroke-dashoffset: 155;"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-metric glass-premium">
+                        <h3>Pending Actions</h3>
+                        <p class="metric-large">14</p>
+                        <span class="badge warning">Improvements found</span>
+                    </div>
+                    <div class="card-metric glass-premium">
+                        <h3>OS Version</h3>
+                        <p class="metric-large">Windows 11</p>
+                        <span class="badge success">Optimized Core</span>
+                    </div>
+                </div>
+                <div class="hero-action">
+                    <button class="btn-primary-glow">Instant Optimize</button>
+                </div>
+            </section>
+
+            <!-- Gaming Tab -->
+            <section id="gaming" class="tab-pane">
+                <div class="view-header">
+                    <h1>Gaming Optimization</h1>
+                    <p>Lower latency and higher FPS for competitive gaming.</p>
+                </div>
+                <div class="tweaks-container">
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Disable Game DVR</h4>
+                            <p>Stops background recording to save CPU resources.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>FSO Optimization</h4>
+                            <p>Disables Fullscreen Optimizations for lower input lag.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Game Mode</h4>
+                            <p>Enables Windows Game Mode for prioritized performance.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CPU Tab -->
+            <section id="cpu" class="tab-pane">
+                <div class="view-header">
+                    <h1>CPU / Power Foundation</h1>
+                    <p>Optimize task scheduling and unlock hidden power states.</p>
+                </div>
+                <div class="tweaks-container">
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Core Unparking</h4>
+                            <p>Prevents CPU cores from entering sleep during load.</p>
+                        </div>
+                        <button class="btn-action">Unpark All</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>High Performance Profile</h4>
+                            <p>Sets Windows power plan to Ultimate/High Performance.</p>
+                        </div>
+                        <button class="btn-action">Unlock Power</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Disable C-States</h4>
+                            <p>Reduces latency by keeping CPU at full frequency.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Priority Throttling Fix</h4>
+                            <p>Stops background processes from stealing CPU priority.</p>
+                        </div>
+                        <button class="btn-action">Fix Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Tab -->
+            <section id="system" class="tab-pane">
+                <div class="view-header">
+                    <h1>System Foundation</h1>
+                    <p>Core Windows optimizations for overall stability.</p>
+                </div>
+                <div class="tweaks-container">
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Clean Standby List</h4>
+                            <p>Frees up unused RAM cached by the system.</p>
+                        </div>
+                        <button class="btn-action">Clean</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Disable Background Apps</h4>
+                            <p>Stops Windows from running apps in the background.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Optimize Visual Effects</h4>
+                            <p>Disables animations for a snappier feel.</p>
+                        </div>
+                        <button class="btn-action">Fastest</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Network Tab -->
+            <section id="network" class="tab-pane">
+                <div class="view-header">
+                    <h1>Network Tweaks</h1>
+                    <p>Eliminate jitter and optimize packet priority.</p>
+                </div>
+                <div class="tweaks-container">
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>TCP No Delay</h4>
+                            <p>Disables Nagle's Algorithm for better ping.</p>
+                        </div>
+                        <button class="btn-action">Optimize</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>DNS Flush</h4>
+                            <p>Clears the DNS cache to resolve connectivity issues.</p>
+                        </div>
+                        <button class="btn-action">Flush</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Disable NetDMA</h4>
+                            <p>Reduces network processing overhead on CPU.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Premium Tab -->
+            <section id="premium" class="tab-pane">
+                <div class="view-header">
+                    <h1>Premium Membership</h1>
+                    <p>Exclusive high-end optimizations for our elite supporters.</p>
+                </div>
+
+                <div id="premium-lock" class="premium-luxury-lock glass-premium">
+                    <div class="luxury-content">
+                        <div class="diamond-icon">
+                            <i class="fa-solid fa-gem fa-beat"></i>
+                        </div>
+                        <h2>Unlock Elite Performance</h2>
+                        <div class="premium-features-list">
+                            <div class="feature-chip"><i class="fa-solid fa-circle-check"></i> Kernel Latency Fix</div>
+                            <div class="feature-chip"><i class="fa-solid fa-circle-check"></i> Advanced IO Priority
+                            </div>
+                            <div class="feature-chip"><i class="fa-solid fa-circle-check"></i> Private Discord Area
+                            </div>
+                        </div>
+                        <p>Become a **Premium** supporter on our Discord server to access these tweaks.</p>
+                        <button class="btn-premium-action"><i class="fa-brands fa-discord"></i> Unlock with
+                            Discord</button>
+                    </div>
+                </div>
+
+                <div id="premium-content" style="display: none;" class="tweaks-container">
+                    <div class="tweak-card premium-luxury-card glass-premium">
+                        <div class="tweak-header">
+                            <h4><i class="fa-solid fa-microchip"></i> Kernel Latency Fix</h4>
+                            <p>Advanced system scheduling for sub-millisecond response times.</p>
+                        </div>
+                        <button class="btn-action">Activate Elite</button>
+                    </div>
+                    <div class="tweak-card premium-luxury-card glass-premium">
+                        <div class="tweak-header">
+                            <h4><i class="fa-solid fa-bolt"></i> Advanced IO Priority</h4>
+                            <p>Prioritizes game drive IRQs over background tasks.</p>
+                        </div>
+                        <button class="btn-action">Activate Elite</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Tab -->
+            <section id="admin" class="tab-pane">
+                <div class="view-header">
+                    <h1>Admin Control Panel</h1>
+                    <p>Manage application status and global announcements.</p>
+                </div>
+
+                <div class="admin-grid">
+                    <!-- Global Pause Control -->
+                    <div class="admin-card glass-premium">
+                        <div class="admin-card-header">
+                            <h3><i class="fa-solid fa-pause"></i> Global Application Pause</h3>
+                            <p>Stop app usage for maintenance or updates.</p>
+                        </div>
+                        <div class="admin-action-row">
+                            <span id="pause-status-text">Status: <b>Running</b></span>
+                            <label class="switch">
+                                <input type="checkbox" id="global-pause-toggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Announcement Broadcaster -->
+                    <div class="admin-card glass-premium">
+                        <div class="admin-card-header">
+                            <h3><i class="fa-solid fa-bullhorn"></i> Broadcast Announcement</h3>
+                            <p>Send a message to all active dashboard users.</p>
+                        </div>
+                        <div class="admin-editor">
+                            <textarea id="announcement-input" placeholder="Type your message here..."></textarea>
+                            <button id="send-announcement-btn" class="btn-primary-glow">Send Broadcast</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GPU Tab -->
+            <section id="gpu" class="tab-pane">
+                <div class="view-header">
+                    <h1>GPU Engine</h1>
+                    <p>Graphics card specific performance modes.</p>
+                </div>
+
+                <div class="gpu-switcher">
+                    <button class="btn-gpu active" data-gpu="nvidia"><i class="fa-brands fa-nvidia"></i> NVIDIA</button>
+                    <button class="btn-gpu" data-gpu="amd"><i class="fa-solid fa-bolt"></i> AMD Radeon</button>
+                </div>
+
+                <div id="gpu-nvidia" class="gpu-content active">
+                    <div class="tweaks-container">
+                        <div class="tweak-card glass-premium">
+                            <div class="tweak-header">
+                                <h4>P0 State Forced</h4>
+                                <p>Forces the GPU to always run at maximum clocks.</p>
+                            </div>
+                            <button class="btn-action">Force Active</button>
+                        </div>
+                        <div class="tweak-card glass-premium">
+                            <div class="tweak-header">
+                                <h4>NVIDIA Telemetry Killer</h4>
+                                <p>Removes background telemetry services from drivers.</p>
+                            </div>
+                            <button class="btn-action">Kill Now</button>
+                        </div>
+                        <div class="tweak-card glass-premium">
+                            <div class="tweak-header">
+                                <h4>NVIDIA Power Mode</h4>
+                                <p>Sets Power Management to 'Prefer Maximum Performance'.</p>
+                            </div>
+                            <button class="btn-action">Optimize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="gpu-amd" class="gpu-content">
+                    <div class="tweaks-container">
+                        <div class="tweak-card glass-premium">
+                            <div class="tweak-header">
+                                <h4>ULPS Disable</h4>
+                                <p>Prevents crossfire/multi-gpu from entering sleep.</p>
+                            </div>
+                            <button class="btn-action">Disable</button>
+                        </div>
+                        <div class="tweak-card glass-premium">
+                            <div class="tweak-header">
+                                <h4>Shader Cache Size</h4>
+                                <p>Forces a larger shader cache for smoother games.</p>
+                            </div>
+                            <button class="btn-action">Optimize</button>
+                        </div>
+                        <div class="tweak-card glass-premium">
+                            <div class="tweak-header">
+                                <h4>Texture Filtering</h4>
+                                <p>Otimização de filtragem de textura para maior FPS.</p>
+                            </div>
+                            <button class="btn-action">Enable</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Peripherals Tab -->
+            <section id="peripherals" class="tab-pane">
+                <div class="view-header">
+                    <h1>Peripherals Engine</h1>
+                    <p>Minimize input lag for Mouse, Keyboard, and USB.</p>
+                </div>
+                <div class="tweaks-container">
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Mouse Acceleration</h4>
+                            <p>Disables Enhance Pointer Precision for raw input.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>USB Selective Suspend</h4>
+                            <p>Stops Windows from turning off USB ports to save power.</p>
+                        </div>
+                        <button class="btn-action">Disable</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Keyboard Response Time</h4>
+                            <p>Optimizes keyboard repeat delay and rate.</p>
+                        </div>
+                        <button class="btn-action">Optimize</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>HID Lag Fix</h4>
+                            <p>Optimizes Human Interface Device processing latency.</p>
+                        </div>
+                        <button class="btn-action">Apply Fix</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Privacy Tab -->
+            <section id="privacy" class="tab-pane">
+                <div class="view-header">
+                    <h1>Privacy & Data</h1>
+                    <p>Protect your identity and stop data mining.</p>
+                </div>
+                <div class="tweaks-container">
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Disable Cortana</h4>
+                            <p>Completely removes Cortana from the system.</p>
+                        </div>
+                        <button class="btn-action">Remove</button>
+                    </div>
+                    <div class="tweak-card glass-premium">
+                        <div class="tweak-header">
+                            <h4>Kill Biometry</h4>
+                            <p>Disables Windows biometric background services.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="./renderer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+C:\Users\lipeee\Desktop\tweaker\release\win-unpacked
+
+npm install
+npm run build:win
