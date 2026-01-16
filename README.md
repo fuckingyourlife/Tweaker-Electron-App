@@ -4,6 +4,9 @@
 ![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows)
 ![License](https://img.shields.io/badge/License-ISC-green?style=for-the-badge)
 
+## Demonstração
+https://youtu.be/7qYvIKNem4c
+
 ## ✨ Funcionalidades
 
 ### 🎮 Gaming Optimization
