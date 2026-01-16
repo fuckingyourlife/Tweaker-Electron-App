@@ -4,12 +4,12 @@ import http from 'http'
 import url from 'url'
 
 // These should be configured by the user
-const CLIENT_ID = '1458295260798255175'
-const CLIENT_SECRET = 'I0j1bn5QUsnNrt68oWwbuaut2zi7qYr-'
-const REDIRECT_URI = 'http://localhost:53134/callback'
-const SERVER_ID = '1359567789433684028'
-const PREMIUM_ROLE_ID = '1359582539685040474'
-const ADMIN_ROLE_ID = '1458848428451823871'
+const CLIENT_ID = 'CLIENT ID'
+const CLIENT_SECRET = 'CLIENT SECRET'
+const REDIRECT_URI = 'http://localhost:53134/callback'// ADD NO REDIRECT DO SEU BOT
+const SERVER_ID = 'SERVER ID'
+const PREMIUM_ROLE_ID = 'PREMIUM ROLE'
+const ADMIN_ROLE_ID = 'ADMIN ROLE'
 
 let authWindow = null
 let server = null
@@ -107,3 +107,4 @@ async function getMemberData(accessToken) {
         return { roles: [] } // User might not be in the server
     }
 }
+
